@@ -1,0 +1,1 @@
+alert Cribbage.points [new Card('h',5), new Card('s',5), new Card('s', 11), new Card('s', 12), new Card('s',13)]  # should be 15
