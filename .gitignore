@@ -1,0 +1,3 @@
+*.js  # ignore compiled javascript files
+test_log.txt  # no need to keep test results
+*.lnk  # ignore hacky shortcuts
