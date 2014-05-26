@@ -1,3 +1,6 @@
+if typeof module != "undefined" && module.exports
+	Array = require '../src/utilities'
+
 class Cribbage
 	constructor: ->
 		# creates new cribbage game
@@ -15,6 +18,7 @@ class Cribbage
 		total += @_fifteen(cards)
 
 		# check for same suit
+		total += @_flush(cards)
 
 		# check for knobs
 		total += @_knobs(cards)
@@ -51,6 +55,7 @@ class Cribbage
 
 	@_knobs: (cards) ->  # works
 		# calculates knobs
+		unless cards.length is 5 then return 0
 		[hand..., flipped] = cards
 		if (card for card in hand when card.number is 11 and card.suit is flipped.suit).length > 0 then 1 else 0
 

@@ -1,9 +1,9 @@
 if typeof module != "undefined" && module.exports
-	Card = require 'card.coffee'
+	Card = require '../src/card'
 else
 	Card = window.Card
 
-class window.Deck
+class Deck
 	constructor: ->
 		# creates new deck in order
 		@cards = []
@@ -23,6 +23,9 @@ class window.Deck
 		card = @cards[0]
 		@cards.splice 0, 1
 		card
+
+	add: (cards...) ->
+		@cards.push card for card in cards
 
 if typeof module != "undefined" && module.exports
 	# Run from CLI (for tests)
