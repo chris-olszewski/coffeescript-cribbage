@@ -1,4 +1,5 @@
 # ignore compiled javascript files
+lib/
 *.js
 # no need to keep test results
 test_log.txt

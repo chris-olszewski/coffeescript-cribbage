@@ -1,5 +1,7 @@
 if typeof module != "undefined" && module.exports
 	Array = require '../src/utilities'
+else
+	Array = window.Array
 
 class Cribbage
 	constructor: ->
@@ -28,7 +30,7 @@ class Cribbage
 		total = 0
 		cards_copy = cards
 		for card in cards_copy.unique()
-			temp = cards.filter (x) -> x.number == card.number
+			temp = cards.filter (x) -> x.number is card.number
 			switch temp.length
 				when 2 then total += 2
 				when 3 then total += 6
@@ -47,10 +49,18 @@ class Cribbage
 		combos = []
 		for card in cards
 			combo = [card]
-			combo.push card2 for card2 in cards when combo.reduce (x, y) -> x.val + y.val <= 15 - card2.val
-			combos.push combo if combo.reduce (x, y) -> x.val + y.val is 15
+			cards2 = cards.filter (c) -> c.suit isnt card.suit or c.number isnt card.number
+			combo.push card2 for card2 in cards2 when (combo.reduce (x, y) -> x.val + y.val) + card2.val <= 15
+			if (combo.reduce (x, y) -> x.val + y.val) is 15
+				combo = combo.sort (a, b) -> if a.number >= b.number then 1 else -1
+				combos.push combo
+		# for combo in combos
+		# 	combos2 = combos.filter (c) -> not (arrayEqual c, combo)
+		# 	for combo2 in combos2
+		# 		if arrayEqual combo, combo2
+		# 			combos.splice(combos.indexOf(combo2), 1) if combos.indexOf(combo2) isnt -1
 		console.log combos
-		combos.length * 2
+		combos.length
 
 
 	@_knobs: (cards) ->  # works
